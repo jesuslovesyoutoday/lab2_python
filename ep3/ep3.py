@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 ejudge = pd.read_html('results_ejudge.html')[0]
 info   = pd.read_excel('students_info.xlsx')
@@ -47,3 +48,15 @@ plt.ylabel('average solved')
 plt.title('solved by informatics groups')
 plt.grid()
 plt.show()
+
+#_____________________GENIUSES_________________________#
+
+frame = ejudge.loc[np.logical_or(ejudge['G'] > 10, ejudge['H'] > 10)]
+for st in frame['User']:
+	frame1 = info.loc[info['login'] == st]
+	fgr = frame1['group_faculty'].to_numpy()[0]
+	gr  = frame1['group_out'].to_numpy()[0]
+	print("Student: ", st, " | ", "From group: ", fgr, " | ", "To group: ", gr)
+
+
+
